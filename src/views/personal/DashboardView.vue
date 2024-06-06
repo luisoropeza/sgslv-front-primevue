@@ -2,6 +2,80 @@
   <div
     class="w-full flex flex-col items-center justify-center text-surface-700 py-12 md:px-12 gap-5"
   >
+    <div class="p-5 w-full h-full border rounded-lg mx-auto bg-white shadow-xl">
+      <div class="text-3xl font-semibold mb-5">Pending requests</div>
+      <DataTable
+        :value="requests.filter((request) => request.status === 'Pending')"
+        paginator
+        :rows="2"
+        size="small"
+        :loading="loading"
+        removableSort
+        tableStyle="min-width: 30rem"
+        class="border border-surface-200"
+      >
+        <template #empty>
+          <div class="text-center">
+            {{
+              user.team
+                ? "No requests found."
+                : "You aren't assigned to any team"
+            }}
+          </div>
+        </template>
+        <template #loading> Loading requests data. Please wait. </template>
+        <template #paginatorstart>
+          <Button type="button" icon="pi pi-refresh" text @click="fetchData" />
+        </template>
+        <Column field="user.firstName" sortable header="First Name">
+          <template #body="{ data }">
+            {{ data.user?.firstName }}
+          </template>
+        </Column>
+        <Column field="user.lastName" sortable header="Last Name">
+          <template #body="{ data }">
+            {{ data.user?.lastName }}
+          </template>
+        </Column>
+        <Column field="reason" sortable header="Reason">
+          <template #body="{ data }">
+            {{ data.reason }}
+          </template>
+        </Column>
+        <Column field="status" sortable header="Status">
+          <template #body="{ data }">
+            <Tag
+              :severity="getSeverity(data.status)"
+              :value="data.status"
+            ></Tag>
+          </template>
+        </Column>
+        <Column field="createdAt" sortable header="Created At">
+          <template #body="{ data }">
+            {{
+              data.createdAt
+                ? format(data.createdAt, "DD/MM/YYYY", "en")
+                : "N/A"
+            }}
+          </template>
+        </Column>
+        <Column header="Actions" headerStyle="width: 5rem; text-align: center">
+          <template #body="{ data }">
+            <Button
+              @click="
+                router.push({
+                  name: 'personal-employee-request',
+                  params: { requestId: data.id, employeeId: data.user?.id },
+                })
+              "
+              size="small"
+              icon="pi pi-eye"
+              severity="info"
+            />
+          </template>
+        </Column>
+      </DataTable>
+    </div>
     <div class="flex w-full h-full max-lg:flex-col gap-5">
       <div
         class="flex flex-col justify-center items-center w-1/2 max-lg:w-full rounded-lg bg-white border-2 shadow-xl p-5 h-[500px]"
@@ -53,77 +127,6 @@
         </div>
       </div>
     </div>
-    <div class="p-5 w-full h-full border rounded-lg mx-auto bg-white shadow-xl">
-      <div class="text-3xl font-semibold mb-5">Pending requests</div>
-      <DataTable
-        :value="requests.filter((request) => request.status === 'Pending')"
-        paginator
-        :rows="2"
-        size="small"
-        :loading="loading"
-        removableSort
-        tableStyle="min-width: 30rem"
-        class="border border-surface-200"
-      >
-        <template #empty>
-          <div class="text-center">
-            {{
-              user.team
-                ? "No requests found."
-                : "You aren't assigned to any team"
-            }}
-          </div>
-        </template>
-        <template #loading> Loading requests data. Please wait. </template>
-        <Column field="user.firstName" sortable header="First Name">
-          <template #body="{ data }">
-            {{ data.user?.firstName }}
-          </template>
-        </Column>
-        <Column field="user.lastName" sortable header="Last Name">
-          <template #body="{ data }">
-            {{ data.user?.lastName }}
-          </template>
-        </Column>
-        <Column field="reason" sortable header="Reason">
-          <template #body="{ data }">
-            {{ data.reason }}
-          </template>
-        </Column>
-        <Column field="status" sortable header="Status">
-          <template #body="{ data }">
-            <Tag
-              :severity="getSeverity(data.status)"
-              :value="data.status"
-            ></Tag>
-          </template>
-        </Column>
-        <Column field="createdAt" sortable header="Created At">
-          <template #body="{ data }">
-            {{
-              data.createdAt
-                ? format(data.createdAt, "DD/MM/YYYY", "en")
-                : "N/A"
-            }}
-          </template>
-        </Column>
-        <Column header="Actions" headerStyle="width: 5rem; text-align: center">
-          <template #body="{ data }">
-            <Button
-              @click="
-                router.push({
-                  name: 'personal-employee-request',
-                  params: { requestId: data.id, employeeId: data.user?.id },
-                })
-              "
-              size="small"
-              icon="pi pi-cog"
-              severity="info"
-            />
-          </template>
-        </Column>
-      </DataTable>
-    </div>
   </div>
 </template>
 
@@ -147,12 +150,15 @@ const chartOptions = {
 const loading = ref(true);
 
 onMounted(async () => {
+  fetchData();
+});
+const fetchData = async () => {
   await requestStore.getRequestsByPersonal();
   requests.value = requestStore.requests.filter(
     (request) => request.user?.role !== "PERSONAL"
   );
   loading.value = false;
-});
+};
 const getSeverity = (status) => {
   switch (status) {
     case "Pending":

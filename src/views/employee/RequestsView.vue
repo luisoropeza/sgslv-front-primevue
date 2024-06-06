@@ -99,7 +99,7 @@
                 })
               "
               size="small"
-              icon="pi pi-cog"
+              icon="pi pi-eye"
               severity="info"
             />
           </template>

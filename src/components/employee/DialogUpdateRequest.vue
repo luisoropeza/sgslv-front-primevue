@@ -79,14 +79,14 @@
           <label for="description" class="text-xs px-1 text-surface-600">
             Description:
           </label>
-          <span class="text-xs text-surface-600">{{ charCount }} / 255</span>
+          <span class="text-xs text-surface-600">{{ charCount }} / 1000</span>
         </div>
         <Textarea
           id="description"
           v-model="form.description"
           rows="5"
           @input="countCharacters"
-          maxlength="255"
+          maxlength="1000"
         />
         <small v-if="errors.description" class="text-red-500 ml-1">
           {{ errors.description }}

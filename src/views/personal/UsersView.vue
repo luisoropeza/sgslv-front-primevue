@@ -11,7 +11,6 @@
         :value="users"
         paginator
         :rows="10"
-        :rowsPerPageOptions="[10, 20, 50]"
         size="small"
         :loading="loading"
         removableSort

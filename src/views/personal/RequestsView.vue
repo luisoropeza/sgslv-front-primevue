@@ -2,9 +2,7 @@
   <div
     class="w-full flex max-lg:flex-col items-center justify-center text-surface-700 py-12 md:px-12"
   >
-    <div
-      class="p-5 border w-full h-full rounded-lg mx-auto bg-white shadow-xl"
-    >
+    <div class="p-5 border w-full h-full rounded-lg mx-auto bg-white shadow-xl">
       <div class="text-3xl font-semibold mb-5">Requests</div>
       <DataTable
         v-model:filters="filters"
@@ -62,6 +60,9 @@
           </div>
         </template>
         <template #loading> Loading requests data. Please wait. </template>
+        <template #paginatorstart>
+          <Button type="button" icon="pi pi-refresh" text @click="fetchData" />
+        </template>
         <Column field="user.firstName" sortable header="First Name">
           <template #body="{ data }">
             {{ data.user?.firstName }}

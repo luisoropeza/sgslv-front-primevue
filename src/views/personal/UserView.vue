@@ -23,29 +23,29 @@
           <div class="flex flex-wrap gap-y-5">
             <div class="w-full md:w-1/2 space-y-5">
               <div class="flex flex-col max-sm:w-full">
-                <div class="text-sm font-normal text-surface-700">
+                <div class="text-lg font-semibold text-surface-700">
                   First Name:
                 </div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{ user.firstName }}
                 </div>
               </div>
               <div class="flex flex-col max-sm:w-full">
-                <div class="text-sm font-normal text-surface-700">
+                <div class="text-lg font-semibold text-surface-700">
                   Last Name:
                 </div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{ user.lastName }}
                 </div>
               </div>
               <div class="flex flex-col max-sm:w-full">
-                <div class="text-sm font-normal text-surface-700">Role:</div>
+                <div class="text-lg font-semibold text-surface-700">Role:</div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{ user.role }}
                 </div>
@@ -54,9 +54,9 @@
                 v-if="user.role !== 'ADMIN'"
                 class="flex flex-col max-sm:w-full"
               >
-                <div class="text-sm font-normal text-surface-700">Team:</div>
+                <div class="text-lg font-semibold text-surface-700">Team:</div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{ user.team ? user.team.name : "N/A" }}
                 </div>
@@ -64,27 +64,27 @@
             </div>
             <div class="w-full md:w-1/2 space-y-5">
               <div class="flex flex-col max-sm:w-full">
-                <div class="text-sm font-normal text-surface-700">Email:</div>
+                <div class="text-lg font-semibold text-surface-700">Email:</div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{ user.email ? user.email : "N/A" }}
                 </div>
               </div>
               <div class="flex flex-col max-sm:w-full">
-                <div class="text-sm font-normal text-surface-700">Phone:</div>
+                <div class="text-lg font-semibold text-surface-700">Phone:</div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{ user.phone ? user.phone : " N/A" }}
                 </div>
               </div>
               <div class="flex flex-col max-sm:w-full">
-                <div class="text-sm font-normal text-surface-700">
+                <div class="text-lg font-semibold text-surface-700">
                   Birth Day:
                 </div>
                 <div
-                  class="text-base font-medium text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                  class="text-base font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   {{
                     user.birthDay
