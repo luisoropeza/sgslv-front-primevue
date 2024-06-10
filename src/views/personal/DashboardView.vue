@@ -3,7 +3,10 @@
     class="w-full flex flex-col items-center justify-center text-surface-700 py-12 md:px-12 gap-5"
   >
     <div class="p-5 w-full h-full border rounded-lg mx-auto bg-white shadow-xl">
-      <div class="text-3xl font-semibold mb-5">Pending requests</div>
+      <div class="text-3xl font-semibold mb-5">
+        Pending requests: 
+        {{ requests.filter((request) => request.status === "Pending").length }}
+      </div>
       <DataTable
         :value="requests.filter((request) => request.status === 'Pending')"
         paginator

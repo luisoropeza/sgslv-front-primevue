@@ -135,6 +135,42 @@
                   }}
                 </div>
               </div>
+              <div
+                v-if="request.status !== 'Pending'"
+                class="flex flex-col max-sm:w-full"
+              >
+                <div class="text-base font-semibold text-surface-700">
+                  Approved By:
+                </div>
+                <div
+                  class="text-sm font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                >
+                  {{
+                    request.approvedBy
+                      ? request.approvedBy.firstName +
+                        " " +
+                        request.approvedBy.lastName
+                      : "N/A"
+                  }}
+                </div>
+              </div>
+              <div
+                v-if="request.status !== 'Pending'"
+                class="flex flex-col max-sm:w-full"
+              >
+                <div class="text-base font-semibold text-surface-700">
+                  Approved At:
+                </div>
+                <div
+                  class="text-sm font-normal text-surface-800 overflow-hidden text-ellipsis whitespace-nowrap"
+                >
+                  {{
+                    request.approvedAt
+                      ? format(request.approvedAt, "DD/MM/YYYY", "en")
+                      : "N/A"
+                  }}
+                </div>
+              </div>
             </div>
             <div class="w-full lg:w-1/2">
               <div class="flex flex-col">
@@ -227,6 +263,7 @@ onMounted(async () => {
 const fetchData = async () => {
   await requestStore.getRequestByEmployee(employeeId.value, requestId.value);
   request.value = requestStore.request;
+  console.log(request.value);
   attributes.value = [
     {
       highlight:
